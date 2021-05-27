@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue'
 export default ({
   plugins: [vue()],
   server:{
-    host: '0.0.0.0',
+    host: '0.0.0.0',//监听所有地址
     // 代理
     proxy: {
         '/api': {    //将https://api.weixin.qq.com印射为/apis

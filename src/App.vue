@@ -15,9 +15,12 @@ import Index from './components/Index.vue'
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  
+
 }
 *{
   margin:0; padding:0;box-sizing: border-box; 
+}
+html,body{
+  background: #f7f7f7;
 }
 </style>
