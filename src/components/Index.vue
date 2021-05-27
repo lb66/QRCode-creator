@@ -25,17 +25,24 @@ let form = reactive({
 let access_token = ref("");
 
 const onCreate = () => {
-  console.log(form.appid);
   axios
     .get(
-      `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${form.appid}&secret=${form.secret}`
+      `/api/cgi-bin/token?grant_type=client_credential&appid=${form.appid}&secret=${form.secret}`
     )
     .then(function (response) {
-      console.log(response.access_token);
-      access_token.value = response.access_token;
-      axios.post(`https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=${access_token.value}`,JSON.parse(JSON.stringify(form)))
+      access_token.value = response.data.access_token;
+      axios({
+        url: `/api/wxa/getwxacodeunlimit?access_token=${access_token.value}`,
+        data: {
+          scene: form.scene,
+          width: form.width,
+          auto_color: form.auto_color,
+          is_hyaline: form.is_hyaline,
+        },
+        method: "post",
+      })
         .then(function (res) {
-          console.log(res);
+          console.log(res.data);
         })
         .catch(function (err) {
           console.log(err);
