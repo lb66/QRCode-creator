@@ -16,3 +16,8 @@ Page({
   }
 })
 ```
+
+## 运行
+```
+npm run dev 或 yarn dev
+```

@@ -67,6 +67,8 @@ import JSZip from "jszip";
 import FileSaver from "file-saver";
 import { ElLoading } from "element-plus";
 import { ElMessage } from "element-plus";
+import {ROOT} from '../config'
+
 let form = reactive({
   appid: "",
   secret: "",
@@ -86,6 +88,8 @@ onMounted(() => {
 });
 
 const onCreate = () => {
+  localStorage.setItem("appid", form.appid);
+  localStorage.setItem("secret", form.secret);
   let loadingInstance = ElLoading.service({
     fullscreen: true,
     background: "rgba(0,0,0,0.6)",
@@ -97,7 +101,7 @@ const onCreate = () => {
   sceneArray.value = form.scene.split(";");
   axios
     .get(
-      `/api/cgi-bin/token?grant_type=client_credential&appid=${form.appid}&secret=${form.secret}`
+      `${ROOT}/cgi-bin/token?grant_type=client_credential&appid=${form.appid}&secret=${form.secret}`
     )
     .then(function (response) {
       if (response.data.errcode) {
@@ -111,14 +115,12 @@ const onCreate = () => {
         });
         return;
       }
-      localStorage.setItem("appid", form.appid);
-      localStorage.setItem("secret", form.secret);
       let promiseArr = [];
       access_token = response.data.access_token;
       sceneArray.value.map((item) => {
         let promise = new Promise((resolve, reject) => {
           axios({
-            url: `/api/wxa/getwxacodeunlimit?access_token=${access_token}`,
+            url: `${ROOT}/wxa/getwxacodeunlimit?access_token=${access_token}`,
             data: {
               scene: item,
               width: form.width,

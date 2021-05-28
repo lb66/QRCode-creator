@@ -15,11 +15,12 @@ cd dist
 git init
 git add -A
 git commit -m 'deploy'
-
+git branch -M main
 # 如果你要部署在 https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
 
 # 如果你要部署在 https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:<USERNAME>/QRCode-creator-web.git master:gh-pages
+git remote add origin https://github.com/lb66/QRCode-creator-web.git
+git push -f origin main
 
 cd -
